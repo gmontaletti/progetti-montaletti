@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Progetti aperti — Giampaolo Montaletti</title>
+<meta name="description" content="Portfolio dei progetti open source di Giampaolo Montaletti: pacchetti R e pipeline per l'analisi del mercato del lavoro, delle competenze e dei dati statistici ufficiali.">
+<meta name="author" content="Giampaolo Montaletti">
+<link rel="canonical" href="https://progetti.montaletti.eu/">
+<meta property="og:title" content="Progetti aperti — Giampaolo Montaletti">
+<meta property="og:description" content="Pacchetti R e pipeline open source per l'analisi del mercato del lavoro e dei dati statistici ufficiali.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231a202c'/%3E%3Cpath d='M7 22l6-7 5 4 7-9' stroke='%2350b884' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #eef1f6;
+  --surface: #ffffff;
+  --surface-2: #f6f8fb;
+  --ink: #1a202c;
+  --ink-2: #4a5568;
+  --ink-3: #718096;
+  --line: #dde3ec;
+  --accent: #50b884;
+  --accent-ink: #1f7a50;
+  --kicker: #3b8fd6;
+  --dark: #1a202c;
+  --dark-ink: #f1f5f9;
+  --chip: #e6ebf2;
+  --chip-on: #1a202c;
+  --chip-on-ink: #ffffff;
+  --shadow: 0 1px 2px rgba(26,32,44,.05), 0 4px 16px rgba(26,32,44,.06);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f141c; --surface: #171e29; --surface-2: #1c2431; --ink: #e8edf4; --ink-2: #b4bfcd;
+    --ink-3: #8b98a9; --line: #2a3443; --accent: #5cc493; --accent-ink: #7fd8ab; --kicker: #6fb3ec;
+    --dark: #0b0f15; --dark-ink: #e8edf4; --chip: #222b39; --chip-on: #e8edf4; --chip-on-ink: #0f141c;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f141c; --surface: #171e29; --surface-2: #1c2431; --ink: #e8edf4; --ink-2: #b4bfcd;
+  --ink-3: #8b98a9; --line: #2a3443; --accent: #5cc493; --accent-ink: #7fd8ab; --kicker: #6fb3ec;
+  --dark: #0b0f15; --dark-ink: #e8edf4; --chip: #222b39; --chip-on: #e8edf4; --chip-on-ink: #0f141c;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25);
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 16px/1.6 Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+a { color: inherit; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+@media (min-width: 720px) { .wrap { padding: 0 32px; } }
+
+/* 1. Header */
+header.top { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; }
+.brand svg { flex: none; }
+.nav { display: flex; gap: 6px; align-items: center; }
+.nav a { text-decoration: none; font-size: 14px; font-weight: 500; color: var(--ink-2); padding: 8px 10px; border-radius: 8px; }
+.nav a:hover { color: var(--ink); background: var(--chip); }
+.nav .cta { background: var(--accent); color: #0d2b1c; font-weight: 600; }
+.nav .cta:hover { background: var(--accent); filter: brightness(1.05); color: #0d2b1c; }
+@media (max-width: 560px) { .nav .hide-sm { display: none; } }
+
+/* 2. Hero */
+.hero { padding: 56px 0 32px; }
+.kicker { display: flex; align-items: center; gap: 12px; color: var(--kicker); font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.kicker::after { content: ""; height: 1px; background: currentColor; opacity: .5; flex: 1; max-width: 240px; }
+h1 { font-size: clamp(36px, 7vw, 64px); line-height: 1.04; letter-spacing: -.03em; margin: 14px 0 18px; font-weight: 800; }
+.lead { font-size: 18px; color: var(--ink-2); max-width: 680px; margin: 0; }
+.stats { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 28px; color: var(--ink-2); font-size: 14px; }
+.stats b { color: var(--ink); font-size: 22px; font-weight: 700; margin-right: 6px; font-variant-numeric: tabular-nums; }
+
+/* 3. Filtri */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 24px; }
+.chip { border: 0; cursor: pointer; font: inherit; font-size: 14px; font-weight: 500; padding: 8px 14px; border-radius: 999px; background: var(--chip); color: var(--ink-2); }
+.chip:hover { color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--chip-on); color: var(--chip-on-ink); }
+.chip:focus-visible, .card a:focus-visible, .nav a:focus-visible { outline: 2px solid var(--kicker); outline-offset: 2px; }
+
+/* 4. Gruppi e card */
+.group { margin: 0 0 40px; }
+.group h2 { font-size: 22px; letter-spacing: -.01em; margin: 0 0 4px; }
+.group > p { margin: 0 0 16px; color: var(--ink-2); font-size: 15px; max-width: 760px; }
+.grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
+@media (min-width: 720px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1040px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow); min-width: 0; }
+.card header { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.card h3 { margin: 0; font-size: 19px; letter-spacing: -.01em; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-weight: 700; overflow-wrap: anywhere; }
+.ver { font-size: 12px; color: var(--ink-3); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.card .title { margin: 0; font-weight: 600; font-size: 15px; line-height: 1.4; }
+.card .desc { margin: 0; color: var(--ink-2); font-size: 14.5px; flex: 1; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 12px; padding: 3px 8px; border-radius: 6px; background: var(--surface-2); color: var(--ink-2); border: 1px solid var(--line); }
+.tag.arch { color: #9a5b00; border-color: #e7c78f; background: #fff6e6; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tag.arch { color: #f0c27a; border-color: #5c4520; background: #2a2114; } }
+:root[data-theme="dark"] .tag.arch { color: #f0c27a; border-color: #5c4520; background: #2a2114; }
+.links { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 4px; border-top: 1px solid var(--line); margin-top: 4px; padding-top: 12px; }
+.links a { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; font-size: 14px; font-weight: 600; padding: 7px 12px; border-radius: 8px; border: 1px solid var(--line); color: var(--ink); }
+.links a:hover { border-color: var(--ink-3); }
+.links a.doc { background: var(--dark); color: var(--dark-ink); border-color: var(--dark); }
+.links svg { width: 16px; height: 16px; flex: none; }
+.dep { font-size: 13px; color: var(--ink-3); margin: 0; }
+.dep a { color: var(--accent-ink); }
+
+/* 5. Footer */
+.note { background: var(--dark); color: var(--dark-ink); border-radius: 16px; padding: 28px; margin: 8px 0 48px; display: grid; gap: 16px; }
+@media (min-width: 840px) { .note { grid-template-columns: 1.4fr 1fr; align-items: center; } }
+.note h2 { margin: 0 0 6px; font-size: 22px; }
+.note p { margin: 0; opacity: .85; font-size: 15px; }
+.note .links { border: 0; padding: 0; margin: 0; }
+.note .links a { color: var(--dark-ink); border-color: rgba(255,255,255,.25); }
+.note .links a.doc { background: var(--accent); color: #0d2b1c; border-color: var(--accent); }
+footer.bottom { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--ink-3); font-size: 14px; }
+footer.bottom .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+footer.bottom a { color: var(--ink-2); }
+.empty { display: none; color: var(--ink-2); }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="https://montaletti.eu/" aria-label="Torna a montaletti.eu">
+      <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#1a202c"/><path d="M7 22l6-7 5 4 7-9" stroke="#50b884" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Consulenza statistica</span>
+    </a>
+    <nav class="nav" aria-label="Navigazione principale">
+      <a class="hide-sm" href="https://montaletti.eu/">Sito</a>
+      <a class="hide-sm" href="https://blog.montaletti.eu/">Blog</a>
+      <a href="https://github.com/gmontaletti">GitHub</a>
+      <a class="cta" href="https://montaletti.eu/contatti">Contatti</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="kicker">Progetti aperti</div>
+    <h1>Codice pubblico, metodi verificabili.</h1>
+    <p class="lead">Pacchetti R e pipeline riproducibili per l'analisi del mercato del lavoro, delle competenze richieste negli annunci online e dei dati statistici ufficiali. Il codice è pubblicato su GitHub con licenza aperta.</p>
+    <div class="stats" aria-label="Sintesi">
+      <span><b id="n-proj">14</b>progetti</span>
+      <span><b>10</b>pacchetti R</span>
+      <span><b>8</b>siti di documentazione</span>
+    </div>
+  </section>
+
+  <div class="filters" role="group" aria-label="Filtra per area">
+    <button class="chip" aria-pressed="true" data-f="all">Tutti</button>
+    <button class="chip" aria-pressed="false" data-f="lavoro">Mercato del lavoro</button>
+    <button class="chip" aria-pressed="false" data-f="competenze">Competenze e annunci</button>
+    <button class="chip" aria-pressed="false" data-f="reti">Reti di mobilità</button>
+    <button class="chip" aria-pressed="false" data-f="dati">Dati ufficiali</button>
+    <button class="chip" aria-pressed="false" data-f="politiche">Politiche e salari</button>
+  </div>
+
+  <!-- 1. Mercato del lavoro -->
+  <section class="group" data-g="lavoro">
+    <h2>Mercato del lavoro e dati amministrativi</h2>
+    <p>Strumenti per trasformare i microdati delle Comunicazioni Obbligatorie in episodi di lavoro, carriere e indicatori per contratto collettivo.</p>
+    <div class="grid">
+      <article class="card">
+        <header><h3>vecshift</h3><span class="ver">v2.0.0</span></header>
+        <p class="title">Analisi temporale dei rapporti di lavoro</p>
+        <p class="desc">Trasforma i rapporti di lavoro con periodi sovrapposti in segmenti temporali continui, classificati per stato occupazionale. Gestisce contratti concorrenti, periodi di non occupazione e distinzione tra tempo pieno e part-time.</p>
+        <div class="tags"><span class="tag">Pacchetto R</span><span class="tag">data.table</span><span class="tag">MIT</span></div>
+        <div class="links">
+          <a class="doc" href="https://gmontaletti.github.io/vecshift/">Documentazione</a>
+          <a href="https://github.com/gmontaletti/vecshift">GitHub</a>
+        </div>
+      </article>
+      <article class="card">
+        <header><h3>longworkR</h3><span class="ver">v0.12.0</span></header>
+        <p class="title">Analisi longitudinale delle carriere lavorative</p>
+        <p class="desc">Analisi e visualizzazione dei dati prodotti da vecshift: analisi di sopravvivenza, valutazione d'impatto, difference-in-differences, reti di transizione e traiettorie di carriera.</p>
+        <div class="tags"><span class="tag">Pacchetto R</span><span class="tag">Valutazione d'impatto</span><span class="tag">MIT</span></div>
+        <p class="dep">Usa <a href="https://gmontaletti.github.io/vecshift/">vecshift</a></p>
+        <div class="links">
+          <a class="doc" href="https://gmontaletti.github.io/longworkR/">Documentazione</a>
+          <a href="https://github.com/gmontaletti/longworkR">GitHub</a>
+        </div>
+      </article>
+      <article class="card">
+        <header><h3>ccnlcob</h3><span class="ver">v0.9.2</span></header>
+        <p class="title">Comunicazioni Obbligatorie per contratto collettivo</p>
+        <p class="desc">Analizza i rapporti di lavoro per CCNL: rilevanza per avviati e giornate effettive, distribuzione per Centro per l'Impiego e per tipologia contrattuale, evoluzione della retribuzione mediana dichiarata all'avviamento.</p>
+        <div class="tags"><span class="tag">Pacchetto R</span><span class="tag">CCNL</span><span class="tag">MIT</span></div>
+        <div class="links">
+          <a class="doc" href="https://gmontaletti.github.io/ccnlcob/">Documentazione</a>
+          <a href="https://github.com/gmontaletti/ccnlcob">GitHub</a>
+        </div>
+      </article>
+      <article class="card">
+        <header><h3>cobstandard</h3><span class="ver">job batch</span></header>
+        <p class="title">Monitoraggio delle Classificazioni Standard</p>
+        <p class="desc">Job containerizzato che rileva le nuove revisioni delle Classificazioni Standard del Ministero del Lavoro, le archivia in DuckDB e produce un report delle differenze rispetto alla revisione precedente.</p>
+        <div class="tags"><span class="tag">Pipeline</span><span class="tag">Docker</span><span class="tag">DuckDB</span></div>
+        <div class="links">
+          <a href="https://github.com/gmontaletti/cobstandard">GitHub</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 2. Competenze -->
+  <section class="group" data-g="competenze">
+    <h2>Competenze e annunci di lavoro online</h2>
+    <p>Importazione degli annunci di lavoro online (OJA) e analisi delle competenze richieste sulle tassonomie ESCO e CP2021.</p>
+    <div class="grid">
+      <article class="card">
+        <header><h3>skillviz</h3><span class="ver">v0.8.1</span></header>
+        <p class="title">Co-occorrenza e specializzazione delle competenze</p>
+        <p class="desc">Indici di specializzazione (Balassa/RCA), reti di co-occorrenza, distanze e cluster tra professioni, ranking temporale, competenze emergenti, previsione delle quote e scomposizione delle variazioni per fonte.</p>
+        <div class="tags"><span class="tag">Pacchetto R</span><span class="tag">ESCO</span><span class="tag">MIT</span></div>
+        <div class="links">
+          <a class="doc" href="https://gmontaletti.github.io/skillviz/">Documentazione</a>
+          <a href="https://github.com/gmontaletti/skillviz">GitHub</a>
+        </div>
+      </article>
+      <article class="card">
+        <header><h3>itaposts</h3><span class="ver">v0.5.1</span></header>
+        <p class="title">Importazione di OJA italiani in DuckDB</p>
+        <p class="desc">Importa, normalizza e indicizza in DuckDB gli annunci di lavoro online a livello regionale (NUTS-2). Ingestione di snapshot mensili e API di lettura basata su dplyr.</p>
+        <div class="tags"><span class="tag">Pacchetto R</span><span class="tag">DuckDB</span><span class="tag">MIT</span></div>
+        <div class="links">
+          <a href="https://github.com/gmontaletti/itaposts">GitHub</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 3. Reti -->
+  <section class="group" data-g="reti">
+    <h2>Reti di mobilità</h2>
+    <p>Algoritmi di clustering su reti pesate costruite da tabelle di mobilità tra posizioni, professioni o settori.</p>
+    <div class="grid">
+      <article class="card">
+        <header><h3>moneca</h3><span class="ver">v1.7.2</span></header>
+        <p class="title">Mobility Network Clustering Analysis</p>
+        <p class="desc">Costruisce reti pesate da tabelle di mobilità e usa le cricche per individuare cluster discreti e annidati di posizioni con elevata mobilità interna. Include visualizzazioni ggraph, dati sintetici e metriche di qualità della segmentazione.</p>
+        <div class="tags"><span class="tag">Pacchetto R</span><span class="tag">Reti</span><span class="tag">GPL-3</span></div>
+        <div class="links">
+          <a class="doc" href="https://gmontaletti.github.io/MONECA/">Documentazione</a>
+          <a href="https://github.com/gmontaletti/MONECA">GitHub</a>
+        </div>
+      </article>
+      <article class="card">
+        <header><h3>monecascale</h3><span class="ver">v0.5.0</span></header>
+        <p class="title">Backend scalabili per moneca</p>
+        <p class="desc">Estende moneca a matrici di grandi dimensioni con stochastic block model gerarchici, clustering bipartito e clustering di flusso con Map Equation e Infomap. I risultati restano compatibili con le funzioni di analisi di moneca.</p>
+        <div class="tags"><span class="tag">Pacchetto R</span><span class="tag">SBM</span><span class="tag">GPL-3</span></div>
+        <p class="dep">Estende <a href="https://gmontaletti.github.io/MONECA/">moneca</a></p>
+        <div class="links">
+          <a class="doc" href="https://gmontaletti.github.io/monecascale/">Documentazione</a>
+          <a href="https://github.com/gmontaletti/monecascale">GitHub</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 4. Dati ufficiali -->
+  <section class="group" data-g="dati">
+    <h2>Accesso ai dati statistici ufficiali</h2>
+    <p>Client e pipeline per scaricare, documentare e aggiornare dati ISTAT ed europei in modo riproducibile.</p>
+    <div class="grid">
+      <article class="card">
+        <header><h3>istatlab</h3><span class="ver">v0.9.0</span></header>
+        <p class="title">Download e trattamento dei dati ISTAT</p>
+        <p class="desc">Accesso all'API SDMX di ISTAT per qualsiasi dataset pubblicato, inclusi gli High Value Datasets, e ai dati demografici di demo.istat.it. Gestione dei metadati, cache ed etichettatura automatica.</p>
+        <div class="tags"><span class="tag">Pacchetto R</span><span class="tag">SDMX</span><span class="tag">MIT</span></div>
+        <div class="links">
+          <a class="doc" href="https://gmontaletti.github.io/istatlab/">Documentazione</a>
+          <a href="https://github.com/gmontaletti/istatlab">GitHub</a>
+        </div>
+      </article>
+      <article class="card">
+        <header><h3>situas</h3><span class="ver">v0.6.0</span></header>
+        <p class="title">Codici territoriali e classificazioni ISTAT</p>
+        <p class="desc">Client dell'API SITUAS di ISTAT: scarica e mette in cache codici e classificazioni territoriali, ricodifica i codici soppressi in quelli vigenti e individua e pulisce i codici territoriali nei dataset.</p>
+        <div class="tags"><span class="tag">Pacchetto R</span><span class="tag">API</span><span class="tag">GPL-3</span></div>
+        <div class="links">
+          <a class="doc" href="https://gmontaletti.github.io/situas/">Documentazione</a>
+          <a href="https://github.com/gmontaletti/situas">GitHub</a>
+        </div>
+      </article>
+      <article class="card">
+        <header><h3>rssistat</h3><span class="ver">v0.1.1</span></header>
+        <p class="title">Feed RSS di ISTAT</p>
+        <p class="desc">Individua i feed RSS e Atom pubblicati sul sito ISTAT, ne analizza il contenuto e produce sintesi delle notizie e dei comunicati.</p>
+        <div class="tags"><span class="tag">Pacchetto R</span><span class="tag">RSS</span><span class="tag">MIT</span></div>
+        <div class="links">
+          <a href="https://github.com/gmontaletti/rssistat">GitHub</a>
+        </div>
+      </article>
+      <article class="card">
+        <header><h3>Ardeco</h3><span class="ver">pipeline</span></header>
+        <p class="title">Database regionale della Commissione Europea</p>
+        <p class="desc">Automazione dello scarico dei dati ARDECO (JRC e DG REGIO) su popolazione, occupazione, PIL, reddito e investimenti per i livelli NUTS 0-3, con archivio DuckDB, cluster regionali e dashboard.</p>
+        <div class="tags"><span class="tag">Pipeline R</span><span class="tag">NUTS</span><span class="tag">Docker</span></div>
+        <div class="links">
+          <a href="https://github.com/gmontaletti/Ardeco">GitHub</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 5. Politiche -->
+  <section class="group" data-g="politiche">
+    <h2>Politiche e salari</h2>
+    <p>Microsimulazione e modelli econometrici sulle retribuzioni e sul prelievo a carico dei lavoratori.</p>
+    <div class="grid">
+      <article class="card">
+        <header><h3>isl</h3><span class="ver">pipeline</span></header>
+        <p class="title">Indice degli sgravi sul lavoro dipendente</p>
+        <p class="desc">Microsimulazione statica mensile del prelievo a carico del lavoratore dipendente in Italia dal 2021, confrontata con la legislazione del dicembre 2020. Scompone la variazione del salario reale netto e misura l'effetto delle soglie nominali non indicizzate. Usa solo materiali pubblici.</p>
+        <div class="tags"><span class="tag">Pipeline R</span><span class="tag">Microsimulazione</span></div>
+        <div class="links">
+          <a href="https://github.com/gmontaletti/isl">GitHub</a>
+        </div>
+      </article>
+      <article class="card">
+        <header><h3>modello_salari</h3><span class="ver">2000-2025</span></header>
+        <p class="title">Determinanti e differenziali salariali in Italia</p>
+        <p class="desc">Modello econometrico VECM delle determinanti dei salari in Italia. L'analisi è conclusa: codice e risultati restano disponibili per consultazione e riproduzione.</p>
+        <div class="tags"><span class="tag">Analisi</span><span class="tag">VECM</span><span class="tag arch">Archiviato</span></div>
+        <div class="links">
+          <a href="https://github.com/gmontaletti/modello_salari">GitHub</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <p class="empty" id="empty">Nessun progetto in questa area.</p>
+
+  <section class="note" aria-label="Contatti">
+    <div>
+      <h2>Usare o adattare un progetto</h2>
+      <p>I pacchetti si installano da GitHub con <code>remotes::install_github()</code>. Per segnalazioni usare le issue dei singoli repository; per collaborazioni e adattamenti a nuovi dati, scrivere dal modulo contatti.</p>
+    </div>
+    <div class="links">
+      <a class="doc" href="https://montaletti.eu/contatti">Contatti</a>
+      <a href="https://github.com/gmontaletti">Profilo GitHub</a>
+      <a href="https://orcid.org/0009-0002-5327-1122">ORCID</a>
+    </div>
+  </section>
+</main>
+
+<footer class="bottom">
+  <div class="wrap">
+    <span>© 2026 Giampaolo Montaletti · Consulenza statistica</span>
+    <span><a href="https://montaletti.eu/">montaletti.eu</a> · <a href="https://blog.montaletti.eu/">Blog</a> · <a href="https://montaletti.eu/privacy">Privacy</a></span>
+  </div>
+</footer>
+
+<script>
+// 1. Filtro per area -----
+(function () {
+  var chips = document.querySelectorAll('.chip');
+  var groups = document.querySelectorAll('.group');
+  function apply(f) {
+    var shown = 0;
+    groups.forEach(function (g) {
+      var on = f === 'all' || g.dataset.g === f;
+      g.style.display = on ? '' : 'none';
+      if (on) shown += g.querySelectorAll('.card').length;
+    });
+    document.getElementById('n-proj').textContent = shown;
+    document.getElementById('empty').style.display = shown ? 'none' : 'block';
+    chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c.dataset.f === f)); });
+    try { sessionStorage.setItem('filtro', f); } catch (e) {}
+  }
+  chips.forEach(function (c) { c.addEventListener('click', function () { apply(c.dataset.f); }); });
+  var saved = null;
+  try { saved = sessionStorage.getItem('filtro'); } catch (e) {}
+  if (saved && document.querySelector('.chip[data-f="' + saved + '"]')) apply(saved);
+})();
+</script>
+</body>
+</html>
